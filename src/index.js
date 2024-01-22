@@ -26,11 +26,27 @@ app.get('/items', (req, res) => {
 });
 
 // GET http://127.0.0.1:3000/items/<ID>
+// app.get('/items/:id', (req, res) => {
+// TODO: palauta vain se objekti, jonka id vastaa pyydettyä
+// console.log('requested item id', req.params.id);
+// let response = 'Tämän tilallle oikea objekti :)';
+// let item = 'tämän tilalle oikea objekti';
+// res.json(response);
+// });
+
+// TODO viikko 1
 app.get('/items/:id', (req, res) => {
-  // TODO: palauta vain se objekti, jonka id vastaa pyydettyä
-  console.log('requested item id', req.params.id);
-  let item = 'tämän tilalle oikea objekti';
-  res.json(item);
+  const requestedId = parseInt(req.params.id);
+
+  // Find the item with the requested ID
+  const item = items.find(item => item.id === requestedId);
+
+  if (item) {
+    console.log('Requested item:', item);
+    res.json(item);
+  } else {
+    res.status(404).json({error: 'Item not found'});
+  }
 });
 
 // Itemin lisäys
