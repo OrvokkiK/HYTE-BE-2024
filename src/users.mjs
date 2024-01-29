@@ -54,10 +54,10 @@ const postUser = (req,res) => {
     if (!req.body.username || !req.body.password || !req.body.email) {
         return res.status(400).json({error: "signup details missing"});
     }
-    // Add a condition that checks username or email are not already registered
+    //checks if username or email are already registered
     const usernameTaken = users.some(user => user.username === req.body.username);
     if (usernameTaken) {
-      // Username is already taken, return an error response
+      // Username or password already taken, returns an error response
       return res.status(400).json({message: "Username is already registered" });
     }
     const emailTaken = users.some(user => user.email === req.body.email);
@@ -84,11 +84,19 @@ const putUser = (req, res) => {
         console.log("index:", index);
         console.log("id", id);
         return res.sendStatus(404);
-
     }
     //bad request
     if (!req.body.username && !req.body.password && !req.body.email) {
         return res.status(400).json({error: "No changes submitted"});
+    }
+    //Checks for duplicates in dummy data
+    if (usernameTaken) {
+        // Username or password already taken, returns an error response
+        return res.status(400).json({message: "Username is already registered" });
+    }
+    const emailTaken = users.some(user => user.email === req.body.email);
+    if (emailTaken) {
+          return res.status(400).json({message: "Email is already registered"})
     }
     // replaces username, password or email
     if (req.body.username) {
