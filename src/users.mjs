@@ -90,6 +90,7 @@ const putUser = (req, res) => {
         return res.status(400).json({error: "No changes submitted"});
     }
     //Checks for duplicates in dummy data
+    const usernameTaken = users.some(user => user.username === req.body.username);
     if (usernameTaken) {
         // Username or password already taken, returns an error response
         return res.status(400).json({message: "Username is already registered" });
@@ -109,7 +110,7 @@ const putUser = (req, res) => {
 
     } if (req.body.email) {
         users[index].email = req.body.email;
-        res.json({updated_userInfo: users[index]}); //ei toimi jos muut tiedot on annettu?
+        res.json({updated_userInfo: users[index]}); //ei toimi jos kaikki tiedot on annettu?
     }
 };
 
