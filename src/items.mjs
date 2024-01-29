@@ -10,52 +10,59 @@ const getItems = (req, res) => {
     res.json(items);
 };
 
-export {getItems};
-
-/* const getItemByID = (req, res) => {
-    const requestedId = parseInt(req.params.id);
-
-    // Find the item with the requested ID
-    const item = items.find(item => item.id === requestedId);
-
-    if (item) {
-      console.log('Requested item:', item);
-      res.json(item);
-    } else {
-      res.status(404).json({error: 'Item not found'});
-    }
-  }; */
-
 const getItemById = (req, res) => {
     console.log('requested item by id', req.params.id);
-    const itemFound = item.find(item => {
+    const itemFound = items.find(item => {
         return item.id == req.params.id;
     });
     const resJson = itemFound ? itemFound : {error: 'not found'};
     if (itemFound) {
         res.json(itemFound);
     } else {
-        res.status(404).json({error: 'Item not found'});
+        res.status(404  ).json({error: 'Item not found'});
     }
     res.json(resJson);
 };
 
-export {getItemById};
-
 const postItem = (req, res) => {
-    // TODO (vapaaehtonen, jatketaan tästä ens kerralla): lisää postattu
-    // item items-taulukkoon
-    res.json({message: 'item created'});
+    // Error if name property is missing
+    //TEST {"name" : "Uusi item"}
+    console.log("postItem: ",req.body);
+    if (!req.body.name) {
+        return res.status(400).json({error:"item name missing"});
+    }
+    //Creates new ID for the items array
+    const newId = items[items.length-1].id + 1
+    const newItem = {id: newId, name: req.body.name};
+    items.push(newItem);
+    res.status(201).json({message: 'item created'});
   };
 
-export{postItem};
+const deleteItem = (req, res) => {
+  const index = items.findIndex(item => item.id == req.params.id);
+  if (index === -1) {
+    // example how to send only the status code (still valid http response)
+    return res.sendStatus(404);
+    }
+    const deletedItems = items.splice(index, 1);
+    console.log('deleteItem:', deletedItems);
+    res.json({deleted_item: deletedItems[0]});
+    // or successful response without any content
+    // res.sendStatus(204);
+  };
 
-const deleteItem  = (req, res) => {
-    res.json({message: 'delete placeholder'});
-};
+const putItem = (req, res) => {
+  // TODO: implement modify item
+  const index = items.findIndex(item => item.id == req.params.id);
+  if (index === -1) {
+    return res.sendStatus(404);
+  }
+  // bad request
+  if (!req.body.name) {
+    return res.status(400).json({error: "item name missing"});
+  }
+  items[index].name = req.body.name;
+  res.json({updated_item: items[index]});
+  };
 
-const putItem = (reg, res) => {
-    res.json({message: 'put placeholder'});
-};
-
-export{deleteItem, putItem};
+export{getItems, getItemById, postItem, putItem, deleteItem};
