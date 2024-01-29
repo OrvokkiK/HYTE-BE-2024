@@ -20,13 +20,12 @@ const users = [
     }
   ];
 
-// TODO: implement route handlers below for users
-// Piilota salasanat, emailit?
+// shows only a list of users, for security reasons
 const getUsers = (req, res) => {
-    res.json(users);
+    const usernames = users.map(user => user.username);
+    res.json({username: usernames});
+    //res.json(users);
 };
-
-//TODO: implement
 
 const getUsersById = (req, res) => {
     console.log('requested user by id', req.params.id);
@@ -41,7 +40,6 @@ const getUsersById = (req, res) => {
     }
 };
 
-// TODO implement
 const postUser = (req,res) => {
     //TEST:
     /*
@@ -51,11 +49,22 @@ const postUser = (req,res) => {
         "email" : "test@example.com"
     }
     */
-   // toimii
+    // checks that all the required user information is submitted
     console.log("postUser: ", req.body);
     if (!req.body.username || !req.body.password || !req.body.email) {
         return res.status(400).json({error: "signup details missing"});
     }
+    // Add a condition that checks username or email are not already registered
+    const usernameTaken = users.some(user => user.username === req.body.username);
+    if (usernameTaken) {
+      // Username is already taken, return an error response
+      return res.status(400).json({message: "Username is already registered" });
+    }
+    const emailTaken = users.some(user => user.email === req.body.email);
+    if (emailTaken) {
+        return res.status(400).json({message: "Email is already registered"})
+    }
+    //Creates new ID for a new user
     const newId = users[users.length-1].id + 1
     const newUser = {
         id: newId,
@@ -63,7 +72,7 @@ const postUser = (req,res) => {
         password: req.body.password,
         email: req.body.email};
     users.push(newUser);
-    res.status(201).json({message: 'Succesful signup!'})
+    res.status(201).json({message: 'Succesful signup!'});
 };
 
 //TODO: implement
@@ -81,6 +90,7 @@ const putUser = (req, res) => {
     if (!req.body.username && !req.body.password && !req.body.email) {
         return res.status(400).json({error: "No changes submitted"});
     }
+    // replaces username, password or email
     if (req.body.username) {
         users[index].username = req.body.username;
         res.json({updated_userInfo: users[index]});
@@ -96,7 +106,6 @@ const putUser = (req, res) => {
 };
 
 //Dummy Login, returns user if username and password match
-// TODO: implement
 const postLogin = (req, res) => {
     const userCreds = req.body;
     console.log('requested user by id', req.params.id);
@@ -114,8 +123,6 @@ const postLogin = (req, res) => {
     } else {
         return res.status(403).json({error: 'username/password invalid'});
     }
-
-    res.send('working on it');
 };
 
 export {getUsers, getUsersById, postUser, putUser, postLogin};
