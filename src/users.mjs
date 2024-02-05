@@ -110,7 +110,7 @@ const putUser = (req, res) => {
 
     } if (req.body.email) {
         users[index].email = req.body.email;
-        res.json({updated_userInfo: users[index]}); //ei toimi jos kaikki tiedot on annettu?
+        res.json({updated_userInfo: users[index]});
     }
 };
 
