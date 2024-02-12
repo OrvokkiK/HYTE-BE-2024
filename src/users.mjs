@@ -1,4 +1,4 @@
-//Mock data
+/*//Mock data
 const users = [
     {
       id: 1,
@@ -49,7 +49,7 @@ const postUser = (req,res) => {
         "email" : "test@example.com"
     }
     */
-    // checks that all the required user information is submitted
+    /*// checks that all the required user information is submitted
     console.log("postUser: ", req.body);
     if (!req.body.username || !req.body.password || !req.body.email) {
         return res.status(400).json({error: "signup details missing"});
@@ -134,4 +134,4 @@ const postLogin = (req, res) => {
     }
 };
 
-export {getUsers, getUsersById, postUser, putUser, postLogin};
+export {getUsers, getUsersById, postUser, putUser, postLogin};*/
