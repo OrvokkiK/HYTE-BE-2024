@@ -1,4 +1,4 @@
-/*// Mock data for simple API
+// Mock data for simple API
 const items = [
     {id: 1, name: 'Item 1'},
     {id: 2, name: 'Item 2'},
@@ -65,4 +65,4 @@ const putItem = (req, res) => {
   res.json({updated_item: items[index]});
   };
 
-export{getItems, getItemById, postItem, putItem, deleteItem};*/
+export{getItems, getItemById, postItem, putItem, deleteItem};

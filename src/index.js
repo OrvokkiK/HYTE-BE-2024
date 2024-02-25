@@ -2,59 +2,52 @@
 import express from 'express';
 import path from 'path';
 import {fileURLToPath} from 'url';
-import { getItemById, getItems, postItem, putItem, deleteItem } from './items.mjs';
-import { getUsers, getUsersById, postUser, putUser, postLogin } from './users.mjs';
+import itemRouter from './routes/item-router.mjs';
+import userRouter from './routes/user-router.mjs';
+import entryRouter from './routes/entry-router.mjs';
+import cors from 'cors';
+import logger from './middlewares/logger.mjs';
+import authRouter from './routes/auth-router.mjs';
 const hostname = '127.0.0.1';
 const port = 3000;
 const app = express();
 
+// middleware, joka lisää CORS-otsakkeen jokaiseen lähtevään vastaukseen.
+// Eli kerrotaan selaimelle, että tämä palvelin sallii AJAX-pyynnöt
+// myös muista kuin samasta alkuperästä (url-osoitteesta, palvelimelta) ladatuilta sivuilta.
+app.use(cors());
+
+// logger middleware
+app.use(logger);
+
+// middleware, joka parsii pyynnössä olevan JSON-datan ja lisää sen request-objektiin (req.body)
 app.use(express.json());
 
+// Staattinen sivusto palvelimen juureen (public-kansion sisältö näkyy osoitteessa http://127.0.0.1:3000/sivu.html)
+// Voit sijoittaa esim. valmiin client-sovelluksen tähän kansioon
 app.use(express.static('public'));
+
+// Staattinen sivusto voidaan tarjoilla myös "ali-url-osoitteessa": http://127.0.0.1:3000/sivusto
+// Tarjoiltava kansio määritellään relatiivisella polulla (tässä käytössä sama kansio kuin yllä).
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 app.use('/sivusto', express.static(path.join(__dirname, '../public')));
 
 
-//RESOURCE /item endpoints
-// GET http://127.0.0.1:3000/items
-app.get('/items', getItems);
 
-//GET ID
-app.get('/items/:id', getItemById);
+// Test RESOURCE /items endpoints (just mock data for testing, not connected to any database)
+app.use('/items', itemRouter);
 
-// POST http://127.0.0.1:3000/items/ Itemin lisäys
-app.post('/items', postItem);
+// bind base url (/api/entries resource) for all entry routes to entryRouter
+app.use('/api/entries', entryRouter);
 
-//PUT
-app.put('/items/:id', putItem);
+// Users resource (/api/users)
+app.use('/api/users', userRouter);
 
-//DELETE
-app.delete('/items/:id', deleteItem);
+// User authentication
+app.use('/api/auth', authRouter);
 
-//Users resource
-// list users
-app.get('/users', getUsers);
-
-//get info of a user
-app.get('/users/:id', getUsersById);
-
-// register user
-app.post('/users', postUser);
-
-// user login
-app.post('/users/login', postLogin);
-
-//update user
-app.put('/users/:id', putUser);
-
-// GET http://127.0.0.1:3000
-// ei toimi tällä hetkellä, koska public-server tarjoilee index.html:n ensin
-app.get('/', (req, res) => {
-  res.send('Welcome to my REST api!');
-});
-
+// Start the server
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
