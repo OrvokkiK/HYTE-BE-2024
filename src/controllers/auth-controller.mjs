@@ -6,8 +6,9 @@ import {selectUserByUsername} from '../models/user-model.mjs';
 // INSECURE LOGIN uses harcoded passwords only
 // returns user object if username & password match
 const postLogin = async (req, res) => {
+  console.log("Qui");
   const {username, password} = req.body;
-  console.log('login', req.body);
+  console.log('login:', req.body);
   const user = await selectUserByUsername(username);
   if (user.error) {
     return res.status(user.error).json(user);
@@ -24,6 +25,7 @@ const postLogin = async (req, res) => {
       .json({error: 401, message: 'invalid username or password'});
   }
 };
+
 
 const getMe = async (req, res) => {
   res.json({user: req.user});

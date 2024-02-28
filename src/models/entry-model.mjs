@@ -1,6 +1,7 @@
 // Note: db functions are async and must be
 // called with await from the controller
 import promisePool from '../utils/database.mjs';
+import { authenticateToken } from '../middlewares/authentication.mjs';
 
 const listAllEntries = async () => {
   try {

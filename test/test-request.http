@@ -71,7 +71,7 @@ GET http://localhost:3000/api/users/2
 ### Get user by id FAIL
 GET http://localhost:3000/api/users/invalidID
 
-### Post users
+### Post users (create a new user)
 POST http://localhost:3000/api/users
 content-type: application/json
 
