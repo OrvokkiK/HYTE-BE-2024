@@ -49,10 +49,10 @@ CREATE TABLE Exercises (
 -- Insert sample data
 
 INSERT INTO Users (username, password, email, created_at, user_level) VALUES
-('johndoe', 'hashed_password', 'johndoe@example.com', '2024-01-01 09:00:00', 'regular'),
-('janedoe', 'hashed_password', 'janedoe@example.com', '2024-01-02 10:00:00', 'admin'),
-('alice_jones', 'hashed_password', 'alice@example.com', '2024-01-04 08:30:00', 'regular'),
-('bob_brown', 'hashed_password', 'bob@example.com', '2024-01-05 07:45:00', 'regular');
+('johndoe', '$2a$10$x7hQkcKqeNkgfybc5c/HyOrMghPkMbAZxFgkDYWn4OBza/ivxPv5q', 'johndoe@example.com', '2024-01-01 09:00:00', 'regular'),
+('janedoe', '$2a$10$x7hQkcKqeNkgfybc5c/HyOrMghPkMbAZxFgkDYWn4OBza/ivxPv5q', 'janedoe@example.com', '2024-01-02 10:00:00', 'admin'),
+('alice_jones', '$2a$10$x7hQkcKqeNkgfybc5c/HyOrMghPkMbAZxFgkDYWn4OBza/ivxPv5q', 'alice@example.com', '2024-01-04 08:30:00', 'regular'),
+('bob_brown', '$2a$10$x7hQkcKqeNkgfybc5c/HyOrMghPkMbAZxFgkDYWn4OBza/ivxPv5q', 'bob@example.com', '2024-01-05 07:45:00', 'regular');
 
 INSERT INTO DiaryEntries (user_id, entry_date, mood, weight, sleep_hours, notes, created_at) VALUES
 (1, '2024-01-10', 'Happy', 70.5, 8, 'Had a great workout session', '2024-01-10 20:00:00'),

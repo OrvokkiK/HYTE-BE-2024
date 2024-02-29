@@ -7,20 +7,32 @@ import {
     listAllEntriesByUserId,
   } from '../models/entry-model.mjs';
 
+import { authenticateToken } from '../middlewares/authentication.mjs';
+
   const getEntries = async (req, res) => {
-    // return only logged in user's own entries
-    // - get user's id from token (req.user.user_id)
     const result = await listAllEntriesByUserId(req.user.user_id);
+    console.log(result);
+
     if (!result.error) {
       res.json(result);
-    } else {
+    }  else {
       res.status(500);
       res.json(result);
     }
   };
 
-  const getEntryById = async (req, res) => {
+  // original
+/*  const getEntryById = async (req, res) => {
     const entry = await findEntryById(req.params.id);
+    if (entry) {
+      res.json(entry);
+    } else {
+      res.sendStatus(404);
+    }
+  }; */
+
+  const getEntryById = async (req, res) => {
+    const entry = await findEntryById(req. params.id, req.user.user_id);
     if (entry) {
       res.json(entry);
     } else {
@@ -28,10 +40,16 @@ import {
     }
   };
 
+
   const postEntry = async (req, res) => {
-    const {user_id, entry_date, mood, weight, sleep_hours, notes} = req.body;
+    const user_id = await req.user.user_id;
+
+    //missä reitti?
+
+
+    const {entry_date, mood, weight, sleep_hours, notes} = req.body;
     if (entry_date && (weight || mood || sleep_hours || notes) && user_id) {
-      const result = await addEntry(req.body);
+      const result = await addEntry(req.body, user_id);
       if (result.entry_id) {
         res.status(201);
         res.json({message: 'New entry added.', ...result});
@@ -45,11 +63,12 @@ import {
   };
 
   const putEntry = async (req, res) => {
+    const user_id = req.user.user_id; //undefined?
     const entry_id = req.params.id;
     const {entry_date, mood, weight, sleep_hours, notes} = req.body;
     // check that all needed fields are included in request
     if ((entry_date || weight || mood || sleep_hours || notes) && entry_id) {
-      const result = await updateEntryById({entry_id, ...req.body});
+      const result = await updateEntryById({entry_id, ...req.body, user_id});
       if (result.error) {
         return res.status(result.error).json(result);
       }
@@ -60,7 +79,7 @@ import {
   };
 
   const deleteEntry = async (req, res) => {
-    const result = await deleteEntryById(req.params.id);
+    const result = await deleteEntryById(req.params.id, req.user.user_id);
     if (result.error) {
       return res.status(result.error).json(result);
     }

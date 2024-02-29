@@ -31,7 +31,7 @@ const selectUserById = async (id) => {
   }
 };
 
-const insertUser = async (user) => {
+const insertUser = async (user, next) => {
   try {
     const sql = 'INSERT INTO Users (username, password, email) VALUES (?, ?, ?)';
     const params = [user.username, user.password, user.email];
@@ -41,7 +41,9 @@ const insertUser = async (user) => {
   } catch (error) {
     // now duplicate entry error is generic 500 error, should be fixed to 400 ?
     console.error('insertUser', error);
-    return {error: 500, message: 'db error'};
+
+    // Error handler can be used directly from model, if next function is passed
+    return next(new Error(error));
   }
 };
 
@@ -88,6 +90,7 @@ const selectUserByUsername = async (username) => {
     if (rows.length === 0) {
       return {error: 401, message: 'invalid username or password'};
     }
+    console.log(rows[0]);
     return rows[0];
   } catch (error) {
     console.error('selectUserByNameAndPassword', error);

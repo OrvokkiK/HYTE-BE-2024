@@ -26,8 +26,8 @@ const listAllEntriesByUserId = async (id) => {
     return {error: e.message};
   }
 };
-
-const findEntryById = async (id) => {
+// original
+/* const findEntryById = async (id) => {
   try {
     const [rows] = await promisePool.query(
         'SELECT * FROM DiaryEntries WHERE entry_id = ?',
@@ -39,10 +39,41 @@ const findEntryById = async (id) => {
     console.error('error', e.message);
     return {error: e.message};
   }
+}; */
+
+const findEntryById = async (id, user_id) => {
+  try {
+    const [rows] = await promisePool.query(
+        'SELECT * FROM DiaryEntries WHERE entry_id = ? and user_id =?',
+        [id, user_id],
+    );
+    // console.log('rows', rows);
+    return rows[0];
+  } catch (e) {
+    console.error('error', e.message);
+    return {error: e.message};
+  }
 };
 
-const addEntry = async (entry) => {
+// Original
+/* const addEntry = async (entry) => {
   const {user_id, entry_date, mood, weight, sleep_hours, notes} = entry;
+  const sql = `INSERT INTO DiaryEntries (user_id, entry_date, mood, weight, sleep_hours, notes)
+  VALUES (?, ?, ?, ?, ?, ?)`;
+  const params = [user_id, entry_date, mood, weight, sleep_hours, notes];
+  try {
+    // change query method?
+    const rows = await promisePool.query(sql, params);
+    // console.log('rows', rows);
+    return {entry_id: rows[0].insertId};
+  } catch (e) {
+    console.error('error', e.message);
+    return {error: e.message};
+  }
+};*/
+
+const addEntry = async (entry, user_id) => {
+  const {entry_date, mood, weight, sleep_hours, notes} = entry;
   const sql = `INSERT INTO DiaryEntries (user_id, entry_date, mood, weight, sleep_hours, notes)
   VALUES (?, ?, ?, ?, ?, ?)`;
   const params = [user_id, entry_date, mood, weight, sleep_hours, notes];
@@ -57,13 +88,15 @@ const addEntry = async (entry) => {
   }
 };
 
-const updateEntryById = async (entry) => {
+
+const updateEntryById = async (entry, user_id) => {
   const {entry_id, entry_date, mood, weight, sleep_hours, notes} = entry;
   try {
     const sql =
-      'UPDATE DiaryEntries SET entry_date=?, mood=?, weight=?, sleep_hours=?, notes=? WHERE entry_id=?';
-    const params = [entry_date, mood, weight, sleep_hours, notes, entry_id];
+      'UPDATE DiaryEntries SET entry_date=?, mood=?, weight=?, sleep_hours=?, notes=? WHERE entry_id=? and user_id=?';
+    const params = [entry_date, mood, weight, sleep_hours, notes, entry_id, user_id];
     const [result] = await promisePool.query(sql, params);
+    console.log('entry id: ', entry_id, 'user_id: ', user_id);
     // console.log(result);
     if (result.affectedRows === 0) {
       return {error: 404, message: 'entry not found'};
@@ -77,10 +110,28 @@ const updateEntryById = async (entry) => {
   }
 };
 
-const deleteEntryById = async (id) => {
+
+// Original
+/*const deleteEntryById = async (id) => {
   try {
     const sql = 'DELETE FROM DiaryEntries WHERE entry_id=?';
     const params = [id];
+    const [result] = await promisePool.query(sql, params);
+    // console.log(result);
+    if (result.affectedRows === 0) {
+      return {error: 404, message: 'entry not found'};
+    }
+    return {message: 'entry deleted', entry_id: id};
+  } catch (error) {
+    console.error('deleteEntryById', error);
+    return {error: 500, message: 'db error'};
+  }
+};*/
+
+const deleteEntryById = async (id, user_id) => {
+  try {
+    const sql = 'DELETE FROM DiaryEntries WHERE entry_id=? and user_id=?';
+    const params = [id, user_id];
     const [result] = await promisePool.query(sql, params);
     // console.log(result);
     if (result.affectedRows === 0) {

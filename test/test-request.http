@@ -6,17 +6,21 @@
 ## /api/entries endpoint
 ##
 
-### Get all entries
+### Get all entries (requiers authorization) (tested)
 GET http://localhost:3000/api/entries
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6Ik5ld2VydXNlciIsImVtYWlsIjoibmV3ZXJ1c2VyQGV4YW1wbGUuY29tIiwiY3JlYXRlZF9hdCI6IjIwMjQtMDItMjlUMTU6MzE6MTkuMDAwWiIsInVzZXJfbGV2ZWwiOiJyZWd1bGFyIiwiaWF0IjoxNzA5MjIwNzI5LCJleHAiOjE3MDkzMDcxMjl9.QwG_5UP8zVCezK9JzygRpIwZQSakvZGCBDYozCUtn3I
 
-### Get entries by id
-GET http://localhost:3000/api/entries/5
+### Get entries by id (tested)
+GET http://localhost:3000/api/entries/8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6Ik5ld2VydXNlciIsImVtYWlsIjoibmV3ZXJ1c2VyQGV4YW1wbGUuY29tIiwiY3JlYXRlZF9hdCI6IjIwMjQtMDItMjlUMTU6MzE6MTkuMDAwWiIsInVzZXJfbGV2ZWwiOiJyZWd1bGFyIiwiaWF0IjoxNzA5MjIwNzI5LCJleHAiOjE3MDkzMDcxMjl9.QwG_5UP8zVCezK9JzygRpIwZQSakvZGCBDYozCUtn3I
+
 
 ### Get entries by id 404
 GET http://localhost:3000/api/entries/invalidID
 
-### Post entry
+### Post entry ( = addEntry) (tested)
 POST http://localhost:3000/api/entries
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6Ik5ld2VydXNlciIsImVtYWlsIjoibmV3ZXJ1c2VyQGV4YW1wbGUuY29tIiwiY3JlYXRlZF9hdCI6IjIwMjQtMDItMjlUMTU6MzE6MTkuMDAwWiIsInVzZXJfbGV2ZWwiOiJyZWd1bGFyIiwiaWF0IjoxNzA5MjIwNzI5LCJleHAiOjE3MDkzMDcxMjl9.QwG_5UP8zVCezK9JzygRpIwZQSakvZGCBDYozCUtn3I
 content-type: application/json
 
 {
@@ -24,8 +28,7 @@ content-type: application/json
   "mood": "Happy",
   "weight": 69.6,
   "sleep_hours": 7,
-  "notes": "This was a good day",
-  "user_id": 3
+  "notes": "This was a good day too!!"
 }
 
 ### Post entry FAIL
@@ -35,16 +38,17 @@ content-type: application/json
 {"msg": "HEllo"}
 
 ### Update entry
-PUT http://localhost:3000/api/entries/5
+### TODO: fix bug entry not found (user_id undefuned)
+PUT http://localhost:3000/api/entries/8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6Ik5ld2VydXNlciIsImVtYWlsIjoibmV3ZXJ1c2VyQGV4YW1wbGUuY29tIiwiY3JlYXRlZF9hdCI6IjIwMjQtMDItMjlUMTU6MzE6MTkuMDAwWiIsInVzZXJfbGV2ZWwiOiJyZWd1bGFyIiwiaWF0IjoxNzA5MjIwNzI5LCJleHAiOjE3MDkzMDcxMjl9.QwG_5UP8zVCezK9JzygRpIwZQSakvZGCBDYozCUtn3I
 content-type: application/json
 
 {
   "entry_date": "2024-02-12",
   "mood": "Even more happy now",
   "weight": 69.6,
-  "sleep_hours": 7,
-  "notes": "This was a good day",
-  "user_id": 3
+  "sleep_hours": 8,
+  "notes": "This was a good day!"
 }
 
 ### Update entry FAIL
@@ -55,14 +59,16 @@ content-type: application/json
   "something": "this will fail, invalid fields"
 }
 
-### Delete entry
-DELETE http://localhost:3000/api/entries/5
+### Delete entry (tested)
+DELETE http://localhost:3000/api/entries/7
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6Ik5ld2VydXNlciIsImVtYWlsIjoibmV3ZXJ1c2VyQGV4YW1wbGUuY29tIiwiY3JlYXRlZF9hdCI6IjIwMjQtMDItMjlUMTU6MzE6MTkuMDAwWiIsInVzZXJfbGV2ZWwiOiJyZWd1bGFyIiwiaWF0IjoxNzA5MjIwNzI5LCJleHAiOjE3MDkzMDcxMjl9.QwG_5UP8zVCezK9JzygRpIwZQSakvZGCBDYozCUtn3I
 
 ##
 ## /api/users endpoint
 ##
 
 ### Get all users
+### TODO: (add admin priv)
 GET http://localhost:3000/api/users
 
 ### Get user by id
@@ -71,14 +77,14 @@ GET http://localhost:3000/api/users/2
 ### Get user by id FAIL
 GET http://localhost:3000/api/users/invalidID
 
-### Post users (create a new user)
+### Post users (create a new user) (tested)
 POST http://localhost:3000/api/users
 content-type: application/json
 
 {
-  "username": "Newuser",
-  "password": "newsecret",
-  "email": "newuser@example.com"
+  "username": "Neweruser",
+  "password": "newersecret",
+  "email": "neweruser@example.com"
 }
 
 ### Post users FAIL
@@ -108,13 +114,13 @@ content-type: application/json
 ### Delete user
 DELETE http://localhost:3000/api/users/2
 
-### Post login
-POST http://localhost:3000/api/users/login
+### Post login (tested)
+POST http://localhost:3000/api/auth/login
 content-type: application/json
 
 {
-  "username": "Newuser",
-  "password": "newsecret"
+  "username": "Neweruser",
+  "password": "newersecret"
 }
 
 ### Post login FAIL
