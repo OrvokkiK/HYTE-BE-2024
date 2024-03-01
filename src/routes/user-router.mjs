@@ -19,8 +19,9 @@ userRouter
   .route('/')
   // list users
   .get(authenticateToken, getUsers)
-  // update user
-  .put(authenticateToken, putUser)
+    // update user
+    .put(authenticateToken, putUser)
+
   // user registration
   .post(
     body('username').trim().isLength({min: 3, max: 20}),
@@ -34,7 +35,7 @@ userRouter
   .route('/:id')
   // get info of a user
   .get(authenticateToken, getUserById)
-  // delete user based on id
+  // Delete user
   .delete(authenticateToken, deleteUser);
 
 export default userRouter;

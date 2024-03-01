@@ -6,7 +6,7 @@
 ## /api/entries endpoint
 ##
 
-### Get all entries (requiers authorization) (tested)
+### Get all entries (tested)
 GET http://localhost:3000/api/entries
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6Ik5ld2VydXNlciIsImVtYWlsIjoibmV3ZXJ1c2VyQGV4YW1wbGUuY29tIiwiY3JlYXRlZF9hdCI6IjIwMjQtMDItMjlUMTU6MzE6MTkuMDAwWiIsInVzZXJfbGV2ZWwiOiJyZWd1bGFyIiwiaWF0IjoxNzA5MjIwNzI5LCJleHAiOjE3MDkzMDcxMjl9.QwG_5UP8zVCezK9JzygRpIwZQSakvZGCBDYozCUtn3I
 
@@ -70,9 +70,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c
 ### Get all users
 ### TODO: (add admin priv)
 GET http://localhost:3000/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6Ik5ld2VydXNlciIsImVtYWlsIjoibmV3ZXJ1c2VyQGV4YW1wbGUuY29tIiwiY3JlYXRlZF9hdCI6IjIwMjQtMDItMjlUMTU6MzE6MTkuMDAwWiIsInVzZXJfbGV2ZWwiOiJyZWd1bGFyIiwiaWF0IjoxNzA5MjIwNzI5LCJleHAiOjE3MDkzMDcxMjl9.QwG_5UP8zVCezK9JzygRpIwZQSakvZGCBDYozCUtn3I
 
-### Get user by id
-GET http://localhost:3000/api/users/2
+
+### Get user by id (tested)
+GET http://localhost:3000/api/users/7
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6Ik5ld2VydXNlciIsImVtYWlsIjoibmV3ZXJ1c2VyQGV4YW1wbGUuY29tIiwiY3JlYXRlZF9hdCI6IjIwMjQtMDItMjlUMTU6MzE6MTkuMDAwWiIsInVzZXJfbGV2ZWwiOiJyZWd1bGFyIiwiaWF0IjoxNzA5MjIwNzI5LCJleHAiOjE3MDkzMDcxMjl9.QwG_5UP8zVCezK9JzygRpIwZQSakvZGCBDYozCUtn3I
 
 ### Get user by id FAIL
 GET http://localhost:3000/api/users/invalidID
@@ -82,9 +85,9 @@ POST http://localhost:3000/api/users
 content-type: application/json
 
 {
-  "username": "Neweruser",
-  "password": "newersecret",
-  "email": "neweruser@example.com"
+  "username": "Moikkari",
+  "password": "Moikkaripoikkari",
+  "email": "moikkari@example.com"
 }
 
 ### Post users FAIL
@@ -94,13 +97,15 @@ content-type: application/json
 {"msg": "bad request, missing fields"}
 
 ### Update user
-PUT http://localhost:3000/api/users/3
+### TODO: Fix bug userdata not changed, req went through??
+PUT http://localhost:3000/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMCwidXNlcm5hbWUiOiJNb2lra2FyaSIsImVtYWlsIjoibW9pa2thcmlAZXhhbXBsZS5jb20iLCJjcmVhdGVkX2F0IjoiMjAyNC0wMy0wMVQxNToxNjozNi4wMDBaIiwidXNlcl9sZXZlbCI6InJlZ3VsYXIiLCJpYXQiOjE3MDkzMDYzNDUsImV4cCI6MTcwOTM5Mjc0NX0.8lXKKCnAn0PpLrR6xjtbQOtFF5poH4RCyIBL96tvSxs
 content-type: application/json
 
 {
-  "username": "updateduser",
-  "password": "newsecret",
-  "email": "updateduser@example.com"
+  "username": "Moikkari2",
+  "password": "Moikkaripoikkari2",
+  "email": "moikkari2@example.com"
 }
 
 ### Update users FAIL
@@ -112,15 +117,16 @@ content-type: application/json
 }
 
 ### Delete user
-DELETE http://localhost:3000/api/users/2
+DELETE http://localhost:3000/api/users/9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo5LCJ1c2VybmFtZSI6Ik1vaWtrYXJpIiwiZW1haWwiOiJtb2lra2FyaUBleGFtcGxlLmNvbSIsImNyZWF0ZWRfYXQiOiIyMDI0LTAzLTAxVDE0OjU2OjM4LjAwMFoiLCJ1c2VyX2xldmVsIjoicmVndWxhciIsImlhdCI6MTcwOTMwNTEwMCwiZXhwIjoxNzA5MzkxNTAwfQ.P31Qdu6ZQKHWvrn-BomIUFtRFiOXrKoRZhetujO0AXo
 
 ### Post login (tested)
 POST http://localhost:3000/api/auth/login
 content-type: application/json
 
 {
-  "username": "Neweruser",
-  "password": "newersecret"
+  "username": "Moikkari",
+  "password": "Moikkaripoikkari"
 }
 
 ### Post login FAIL

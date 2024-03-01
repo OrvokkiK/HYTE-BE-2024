@@ -10,7 +10,8 @@ import {
 } from '../models/user-model.mjs';
 
 const getUsers = async (req, res) => {
-  const result = await listAllUsers();
+  const user_id = req.user.user_id
+  const result = await listAllUsers(user_id);
   if (result.error) {
     return res.status(result.error).json(result);
   }
@@ -18,7 +19,9 @@ const getUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-  const result = await selectUserById(req.params.id);
+  const user_id = req.user.user_id
+  const result = await selectUserById(req.params.id, user_id );
+
   if (result.error) {
     return res.status(result.error).json(result);
   }
@@ -58,15 +61,15 @@ const postUser = async (req, res, next) => {
 // Only user authenticated by token can update own data
 const putUser = async (req, res) => {
   // Get userinfo from req.user object extracted from token
-  const user_id = req.user.user_id;
+  const userId = req.user.user_id;
   const {username, password, email} = req.body;
   // hash password if included in request
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   // check that all needed fields are included in request
-  if (user_id && username && password && email) {
+  if (userId && username && password && email) {
     const result = await updateUserById({
-      user_id,
+      userId,
       username,
       password: hashedPassword,
       email,
@@ -80,8 +83,10 @@ const putUser = async (req, res) => {
   }
 };
 
+
 const deleteUser = async (req, res) => {
-  const result = await deleteUserById(req.params.id);
+  const user_id = req.user.user_id
+  const result = await deleteUserById(req.params.id, user_id);
   if (result.error) {
     return res.status(result.error).json(result);
   }

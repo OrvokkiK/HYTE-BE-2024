@@ -1,6 +1,7 @@
 import promisePool from '../utils/database.mjs';
 
-const listAllUsers = async () => {
+const listAllUsers = async (user_id) => {
+  //TODO: add checks for admin privs based on id
   try {
     const sql = 'SELECT user_id, username, user_level FROM Users';
     const [rows] = await promisePool.query(sql);
@@ -12,24 +13,25 @@ const listAllUsers = async () => {
   }
 };
 
-const selectUserById = async (id) => {
-  try {
-    const sql = 'SELECT * FROM Users WHERE user_id=?';
-    const params = [id];
-    const [rows] = await promisePool.query(sql, params);
+const selectUserById = async (id, user_id) => {
+  if (id == user_id) {
+    try {
+      const sql = 'SELECT * FROM Users WHERE user_id=?';
+      const params = [id];
+      const [rows] = await promisePool.query(sql, params);
     //console.log(rows);
     // if nothing is found with the user id, result array is empty []
-    if (rows.length === 0) {
-      return {error: 404, message: 'user not found'};
-    }
-    // Remove password property from result
-    delete rows[0].password;
-    return rows[0];
-  } catch (error) {
-    console.error('selectUserById', error);
-    return {error: 500, message: 'db error'};
+      if (rows.length === 0) {
+        return {error: 404, message: 'user not found'};
+      }
+      // Remove password property from result
+      delete rows[0].password;
+      return rows[0];
+  }   catch (error) {
+      console.error('selectUserById', error);
+      return {error: 500, message: 'db error'};
   }
-};
+}};
 
 const insertUser = async (user, next) => {
   try {
@@ -62,7 +64,29 @@ const updateUserById = async (user) => {
   }
 };
 
-const deleteUserById = async (id) => {
+const deleteUserById = async (id, user_id) => {
+  if (user_id == id) {
+    try {
+      const sql = 'DELETE FROM Users WHERE user_id=?';
+      const params = [id];
+      const [result] = await promisePool.query(sql, params);
+      console.log(result);
+      if (result.affectedRows === 0) {
+        return {error: 404, message: 'user not found'};
+      }
+      return {message: 'user deleted', user_id: id};
+    } catch (error) {
+      // note that users with other data (FK constraint) cant be deleted directly
+      console.error('deleteUserById', error);
+      return {error: 500, message: 'db error'};
+    }
+  } else {
+    return {error: 403, message: 'forbidden'};
+  }
+};
+
+//Original
+/* const deleteUserById = async (id, user_id) => {
   try {
     const sql = 'DELETE FROM Users WHERE user_id=?';
     const params = [id];
@@ -77,7 +101,7 @@ const deleteUserById = async (id) => {
     console.error('deleteUserById', error);
     return {error: 500, message: 'db error'};
   }
-};
+}; */
 
 // Used for login
 const selectUserByUsername = async (username) => {
