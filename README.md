@@ -102,3 +102,5 @@ GET http://localhost:3000/api/auth/me
 Authorization: Bearer token
 
 # Database
+The backend uses an SQL database. The BDMS used during development was MySQL. The structure of the database is described in the following image:
+![Näyttökuva 2024-03-19 003816](https://github.com/OrvokkiK/HYTE-BE-2024/assets/122262462/60a298f6-890f-47b1-8867-8dfc026685af)
