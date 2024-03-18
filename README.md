@@ -3,9 +3,13 @@
 Node.Js + Express
 
 Start dev server: 'npm run dev' / 'npm start'
+# Features
+The API allows for fetching (GET), adding (POST), editing (PUT) and removing (DELETE) Diary entries (/api/entries) endpoint. The API also allows for fetching (GET), adding (POST) and editing (PUT) the users endpoint (/api/users). It is also possible to
+fetch (GET) the user's info throught the (api/auth/me) endpoint and login to the site and obtain a token throught (GET) the (api/users/login) endpoint.
+Further information about how to interact with the API can be found below. 
 
 # Routes: 
-# Health Diary REST API - HTTP requests for testing endpoints
+### Health Diary REST API - HTTP requests for testing endpoints
 
 ##
 ## /api/entries endpoint
@@ -104,3 +108,12 @@ Authorization: Bearer token
 # Database
 The backend uses an SQL database. The BDMS used during development was MySQL. The structure of the database is described in the following image:
 ![Näyttökuva 2024-03-19 003816](https://github.com/OrvokkiK/HYTE-BE-2024/assets/122262462/60a298f6-890f-47b1-8867-8dfc026685af)
+
+# Demo Video
+
+
+# Known Bugs
+- Delete users request isn't completed in the backend (DELETE http://localhost:3000/api/users/20)
+- User cannot be deleted if user has db entries in other tables
+
+# Sources
