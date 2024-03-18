@@ -15,6 +15,13 @@ const app = express();
 // middleware, joka lisää CORS-otsakkeen jokaiseen lähtevään vastaukseen.
 // Eli kerrotaan selaimelle, että tämä palvelin sallii AJAX-pyynnöt
 // myös muista kuin samasta alkuperästä (url-osoitteesta, palvelimelta) ladatuilta sivuilta.
+/* app.use(cors({
+  origin: 'http://localhost:5173', // Replace YOUR_PORT_NUMBER with the port where your client is running
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+ */
 app.use(cors());
 
 // logger middleware

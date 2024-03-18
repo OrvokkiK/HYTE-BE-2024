@@ -61,11 +61,13 @@ const updateUserById = async (user) => {
 };
 
 const deleteUserById = async (id) => {
-  try {
+  console.log('Jee jee päästiin tänne asti.')
+  console.log(id);
+   try {
     const sql = 'DELETE FROM Users WHERE user_id=?';
     const params = [id];
     const [result] = await promisePool.query(sql, params);
-    console.log(result);
+    // console.log(result);
     if (result.affectedRows === 0) {
       return {error: 404, message: 'user not found'};
     }

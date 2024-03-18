@@ -17,8 +17,6 @@ userRouter
   .route('/')
   // list users
   .get(authenticateToken, getUsers)
-  // update user
-  .put(authenticateToken, putUser)
   // user registration
   .post(postUser);
 
@@ -27,6 +25,8 @@ userRouter
   .route('/:id')
   // get info of a user
   .get(authenticateToken, getUserById)
+  // update user
+  .put(authenticateToken, putUser)
   // delete user based on id
   .delete(authenticateToken, deleteUser);
 

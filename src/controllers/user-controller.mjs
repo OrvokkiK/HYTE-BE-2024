@@ -70,11 +70,15 @@ const putUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  const result = await deleteUserById(req.params.id);
-  if (result.error) {
-    return res.status(result.error).json(result);
+  const userId = req.user.user_id;
+  const userLevel = req.user.user_level
+  if (req.params.id === userId || req.user.user_level === 'admin') {
+    const result = await deleteUserById(req.params.id);
+    if (result.error) {
+      return res.status(result.error).json(result);
+    }
+    return res.json(result);
   }
-  return res.json(result);
 };
 
 export {getUsers, getUserById, postUser, putUser, deleteUser};
