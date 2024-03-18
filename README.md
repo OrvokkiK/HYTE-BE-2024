@@ -117,3 +117,5 @@ The backend uses an SQL database. The BDMS used during development was MySQL. Th
 - User cannot be deleted if user has db entries in other tables
 
 # Sources
+Background image: Zakaria Boumliha. Image taken Nov 23, 2018. Uploaded August, 21st, 2019. "Man Running on Sand Field". Morocco. https://www.pexels.com/photo/man-running-on-sand-field-2827392/
+
