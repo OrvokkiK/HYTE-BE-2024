@@ -122,5 +122,6 @@ https://metropoliafi-my.sharepoint.com/:v:/g/personal/orvokkk_metropolia_fi/Ebwk
 - missing confirmation messages when interacting with frontend
 
 # Sources
-Background image: Zakaria Boumliha. Image taken Nov 23, 2018. Uploaded August, 21st, 2019. "Man Running on Sand Field". Morocco. https://www.pexels.com/photo/man-running-on-sand-field-2827392/
+- Background image: Zakaria Boumliha. Image taken Nov 23, 2018. Uploaded August, 21st, 2019. "Man Running on Sand Field". Morocco. https://www.pexels.com/photo/man-running-on-sand-field-2827392/
 
+- Course materials
