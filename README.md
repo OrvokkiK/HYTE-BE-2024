@@ -110,11 +110,13 @@ The backend uses an SQL database. The BDMS used during development was MySQL. Th
 ![Näyttökuva 2024-03-19 003816](https://github.com/OrvokkiK/HYTE-BE-2024/assets/122262462/60a298f6-890f-47b1-8867-8dfc026685af)
 
 # Demo Video
-
+demovideo:
+https://metropoliafi-my.sharepoint.com/:v:/g/personal/orvokkk_metropolia_fi/EbwkMliA0ERGrNGdMZz0hcEBwRJ-qgYISEFjSmWCUaP_bg
 
 # Known Bugs
 - Delete users request isn't completed in the backend (DELETE http://localhost:3000/api/users/20)
 - User cannot be deleted if user has db entries in other tables
+- missing confirmation messages when interacting with frontend
 
 # Sources
 Background image: Zakaria Boumliha. Image taken Nov 23, 2018. Uploaded August, 21st, 2019. "Man Running on Sand Field". Morocco. https://www.pexels.com/photo/man-running-on-sand-field-2827392/
