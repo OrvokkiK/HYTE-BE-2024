@@ -110,8 +110,11 @@ The backend uses an SQL database. The BDMS used during development was MySQL. Th
 ![Näyttökuva 2024-03-19 003816](https://github.com/OrvokkiK/HYTE-BE-2024/assets/122262462/60a298f6-890f-47b1-8867-8dfc026685af)
 
 # Demo Video
-demovideo:
+demo video (requiers sign-in, accessible only to Metropolia UAS organisation members):
 https://metropoliafi-my.sharepoint.com/:v:/g/personal/orvokkk_metropolia_fi/EbwkMliA0ERGrNGdMZz0hcEBwRJ-qgYISEFjSmWCUaP_bg
+
+# Frontend
+
 
 # Known Bugs
 - Delete users request isn't completed in the backend (DELETE http://localhost:3000/api/users/20)
