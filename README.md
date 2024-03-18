@@ -114,6 +114,11 @@ demo video (requiers sign-in, accessible only to Metropolia UAS organisation mem
 https://metropoliafi-my.sharepoint.com/:v:/g/personal/orvokkk_metropolia_fi/EbwkMliA0ERGrNGdMZz0hcEBwRJ-qgYISEFjSmWCUaP_bg
 
 # Frontend
+![Näyttökuva 2024-03-19 013024](https://github.com/OrvokkiK/HYTE-BE-2024/assets/122262462/ef73c181-65a6-4025-9e7b-4e1a464cc904)
+![Näyttökuva 2024-03-19 013035](https://github.com/OrvokkiK/HYTE-BE-2024/assets/122262462/82a2b5c6-824d-40fb-8620-3b7c0f3bf1d7)
+![Näyttökuva 2024-03-19 012123](https://github.com/OrvokkiK/HYTE-BE-2024/assets/122262462/26883bdb-6908-4a3f-833e-5ea7a5546188)
+![Näyttökuva 2024-03-19 012239](https://github.com/OrvokkiK/HYTE-BE-2024/assets/122262462/d7e29f26-9a5e-49b3-9baf-78785ca9c583)
+![Näyttökuva 2024-03-19 012239](https://github.com/OrvokkiK/HYTE-BE-2024/assets/122262462/3f37d8bd-8a4f-4a86-b98d-191f6500ee5b)
 
 
 # Known Bugs
