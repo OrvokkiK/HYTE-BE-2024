@@ -130,4 +130,4 @@ The frondend was implemented using Vite.js framework with HTML, CSS and JavaScri
 # Sources
 - Background image: Zakaria Boumliha. Image taken Nov 23, 2018. Uploaded August, 21st, 2019. "Man Running on Sand Field". Morocco. https://www.pexels.com/photo/man-running-on-sand-field-2827392/
 
-- Course materials
+- Course materials (HYTE WEB DEV)
