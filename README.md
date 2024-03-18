@@ -29,7 +29,7 @@ Authorization: Bearer token
   "mood": "Happy",
   "weight": 69.69,
   "sleep_hours": 7,
-  "notes": "This was a great day, but does this req fail?",
+  "notes": "This was a good day",
   "user_id": 3
 }
 
@@ -78,9 +78,9 @@ PUT http://localhost:3000/api/users/19
 content-type: application/json
 Authorization: Bearer token
 {
-  "username": "muokattava",
-  "password": "muokattava",
-  "email": "muokattava2@muokattava.fi"
+  "username": "test-newuser",
+  "password": "testnewsecret",
+  "email": "test.newuser@example.com"
 }
 
 ### Delete user
